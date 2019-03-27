@@ -1,0 +1,141 @@
+---
+title: '2019-03-20'
+author: ""
+date: "3/20/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+dialogue <- c("小明說：'明天不用上課。'",
+               "小花說：'真的嗎？'")
+
+cat(dialogue, sep='\n')
+```
+```{r}
+aLogical <- c(T,TRUE,F,FALSE,FALSE)
+class(aLogical)
+
+# 加總向量內的所有元素值。
+sum(aLogical)
+```
+
+```{r}
+studentMajors <-factor(
+  c("經濟系","經濟系","法律系")
+)
+
+```
+```{r}
+class(studentMajors)
+```
+
+
+```{r}
+birthplace<-factor(
+  c("台中市","台中市","台北市","台北市","台北市","台南市")
+)
+class(birthplace)
+levels(birthplace)
+as.integer(birthplace)
+```
+
+```{r}
+library(lubridate)
+```
+
+```{r}
+dtObject<-ymd_hms("1970-01-01 00:02:53") 
+
+dtObjectVector<-ymd_hms(
+  c("1970-01-01 00:02:53",
+    "1980-02-11 11:25:22")
+)
+```
+```{r}
+class(dtObject)
+
+typeof(dtObject)
+as.double(dtObject)
+```
+```{r}
+Sys.timezone()
+```
+
+```{r}
+twDateTime2 <- ymd_hms("2019-03-27 15:44:40", tz="Asia/Taipei")
+twDateTime2
+```
+```{r}
+twDateTime3<- ymd_hms("2019-03-27 15:10:40")
+twDateTime3
+```
+
+```{r}
+FranceDateTime <- with_tz(twDateTime2,tzone="Europe/Paris")
+
+```
+
+```{r}
+typeof(FranceDateTime)
+as.double(FranceDateTime)
+as.double(twDateTime)
+```
+
+```{r}
+Sys.timezone()
+```
+```{r}
+twDateTime<- ymd("2018-09-11")
+twDateTime
+```
+```{r}
+happytime<-mdy("March,3,1997")
+happytime
+```
+
+```{r}
+a <- c(1, 5, -3)
+b <- c(0.5, 12, 2)
+aL<-c(3L,1L,-2L)
+bL<-c(1L,-2L,20L)
+
+a+b
+aL*bL
+
+a^b
+a %% b
+
+```
+```{r}
+class("a+2bL")
+```
+```{r}
+twDateTime
+twDateTime+1
+```
+
+```{r}
+happytime
+twDateTime
+twDateTime3
+twDateTime2
+twDateTime-happytime
+twDateTime3-twDateTime2
+```
+```{r}
+x2<-c(2,3,5,22)
+y2<-c(3,4,22)
+x2
+y2
+x2%in%y2
+```
+
+```{r}
+x3<-c(2,NA,3)
+is.na(x3)
+```
+
