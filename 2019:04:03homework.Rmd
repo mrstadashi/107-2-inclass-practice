@@ -1,0 +1,227 @@
+---
+title: "2019/04/03practiceandhomework"
+author: "ekubo"
+date: "2019/4/12"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r}
+library(readr)
+exData2 <- read_csv("https://raw.githubusercontent.com/tpemartin/github-data/master/exData2.csv")
+date <- as.character(exData2$期間)
+currency <- exData2$幣別
+exchangeRate <- exData2$匯率
+```
+```{r}
+head(currency)#顯示前六個元素值
+```
+```{r}
+class(currency)#資料剛進來沒有被當成factor class
+```
+更正為factor class
+```{r}
+currency<- as.factor(currency)
+#新物件            #舊物件
+```
+```{r}
+class(currency)
+```
+
+```{r}
+levels(currency)
+```
+
+length():數向量內的元素個數（向量長度）
+```{r}
+length(levels(currency))
+```
+
+有多少筆日圓資料
+```{r}
+head(currency)
+levels(currency)
+
+```
+
+```{r}
+currency2<- c("日圓","美元","日圓")
+currency2
+```
+```{r}
+sum(currency2=="日圓")
+```
+
+```{r}
+head(currency)
+sum(currency=="日圓JPY/USD")
+```
+
+logical operators
+```{r}
+x5 <- c("台北市","新北市","高雄市")
+greatTaipei <- c("台北市","新北市")
+
+x5 %in% greatTaipei
+!(x5 %in% greatTaipei)
+```
+
+```{r}
+x6<- c("台北市","台北市","台南市","新北市","台北市")
+x6%in%greatTaipei
+```
+```{r}
+y5<-c("女","男","女")
+y5=="女"
+!(y5=="女")
+```
+```{r}
+x5%in%greatTaipei
+y5=="女"
+(x5%in%greatTaipei)&(y5=="女")
+```
+```{r}
+which((x5%in%greatTaipei)&(y5=="女"))
+```
+```{r}
+(x5%in%greatTaipei)
+(y5=="女")
+(x5%in%greatTaipei)|(y5=="女")#or的意思
+which((x5%in%greatTaipei)|(y5=="女"))
+```
+只滿足其中一項條件
+```{r}
+x5 %in% greatTaipei
+y5=="女"
+xor(x5 %in% greatTaipei, y5=="女")
+which(xor(x5 %in% greatTaipei, y5=="女"))
+```
+```{r}
+library(readr)
+exData2 <- read_csv("https://raw.githubusercontent.com/tpemartin/github-data/master/exData2.csv")
+date <- as.character(exData2$期間)
+currency <- exData2$幣別
+exchangeRate <- exData2$匯率
+```
+```{r}
+class(date)
+```
+```{r}
+head(date)
+```
+```{r}
+library(lubridate)
+date<-ymd(date)
+class(date)
+```
+
+```{r}
+isafter198008<-
+  date >= ymd("1980-08-01")
+isafter198008
+```
+
+```{r}
+head(as.integer(date))
+as.integer(ymd("1980-08-01"))
+head(date>=ymd("1980-08-01"))
+```
+```{r}
+class(isafter198008)
+sum(isafter198008)
+```
+幣別為歐元有多少筆
+```{r}
+head(currency)
+```
+```{r}
+head(currency=="歐元USD/EUR")
+isEURO<-currency=="歐元USD/EUR"
+sum(isEURO)
+```
+
+```{r}
+isExchangeRateNA<-
+  is.na(exchangeRate)
+sum(isExchangeRateNA)
+```
+```{r}
+isNotNA<- !is.na(exchangeRate)
+isEuro<- currency=="歐元USD/EUR"
+sum((isNotNA)&(isEuro))
+```
+
+```{r}
+library(readr)
+transcriptDataFinal <- read_csv("https://raw.githubusercontent.com/tpemartin/github-data/master/transcriptDataFinal.csv")
+courseType <- transcriptDataFinal$`必選修類別（必∕選∕通）`
+major <- transcriptDataFinal$學系
+studentID <- transcriptDataFinal$學號
+grade <- transcriptDataFinal$學期成績
+```
+```{r}
+head(major)
+```
+有多少筆資料是來自經濟學系
+```{r}
+sum(major=="經濟學系")
+```
+請問學號“5bdS6977b”同學修了多少課
+```{r}
+sum(studentID=="5bdS6977b")
+```
+請問學號“5bdS6977b”有多少科成績及格
+```{r}
+head(grade>="60")
+sum(studentID=="5bdS6977b")
+sum(grade>="60")
+sum(studentID=="5bdS6977b"&grade>="60")
+```
+有多少筆資料來自經濟學系學生且為選修課
+```{r}
+sum(major=="經濟學系")
+sum(courseType=="選")
+sum(major=="經濟學系"&courseType=="選")
+```
+在經濟學系學生且必修課程中，成經不及格佔多少比例
+```{r}
+sum(major=="經濟學系"&courseType=="必")
+sum(major=="經濟學系"&courseType=="必"&grade < 60)
+
+sum(major=="經濟學系"&courseType=="必"&grade < 60)->分子
+
+sum(major=="經濟學系"&courseType=="必")->分母
+
+
+
+
+```
+
+
+```{r}
+分子/分母
+```
+
