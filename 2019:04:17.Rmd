@@ -105,7 +105,7 @@ plasticContainer[c(T,F,T)]
 成績單
 成績單[c(FALSE,TRUE,TRUE)]
 ```
-
+會考啊很重要的，要會找條件出來
 ```{r}
 your_github_username <- "mrstadashi"
 your_practice_reponame <- "107-2-inclass-practice"
@@ -121,6 +121,40 @@ str_replace_all(
 commitCheck <- content(GET(commitCheckStatement))
 ```
 ```{r}
-commitCheckStatement
+commitCheck[[4]][["commit"]][["committer"]][["date"]]->commiDate
+
+commiDate
+```
+
+
+
+```{r}
+library(readr)
+filmVotingData <- read_csv("https://raw.githubusercontent.com/tpemartin/github-data/master/podcastcompetition3.csv")
+str_replace(filmVotingData$請選擇你最喜歡的影片二部,", by"," by") -> favoriteTwo
+birthday <- filmVotingData$`出生西元年月日（驗證本人用）`
+timeStamp <- filmVotingData$Timestamp
+```
+```{r}
+filmVotingData$Timestamp
+filmVotingData[["Timestamp"]]
+filmVotingData$`Timestamp`
+#三個是一樣的，反頓點用在比較特殊的符號
+```
+```{r}
+library(stringr)
+str_split(favoriteTwo,", ") -> favoriteTwoList # 將選擇的兩片split成兩個元素
+unlist(favoriteTwoList) -> allVotes # 將list堆疊成atomic vector
+table(allVotes) # 計算每個類別的次數
+
+```
+```{r}
+logiCorrect<-str_length(birthday)==8
+logiCorrect
+#Birthaday有亂投的，true只留下剛好是八碼的
+```
+```{r}
+favoriteTwo[logiCorrect]->validFavoriteTwo
+validFavoriteTwo
 ```
 

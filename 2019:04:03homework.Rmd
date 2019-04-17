@@ -224,4 +224,20 @@ sum(major=="經濟學系"&courseType=="必")->分母
 ```{r}
 分子/分母
 ```
-
+```{r}
+your_github_username <- "mrstadashi"
+your_practice_reponame <- "107-2-inclass-practice"
+library(httr)
+library(stringr)
+str_replace_all(
+  "https://api.github.com/repos/:owner/:repo/commits",
+  c(
+    ":owner"=your_github_username,
+    ":repo"=your_practice_reponame
+    )
+  ) -> commitCheckStatement
+commitCheck <- content(GET(commitCheckStatement))
+```
+```{r}
+commitCheckStatement
+```
