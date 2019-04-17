@@ -1,0 +1,126 @@
+---
+title: "2019/04/17chapter6"
+author: "ekubo"
+date: "2019/4/17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+
+```{r}
+studentRecord <-
+  list(
+    學號="410073058",
+    姓名="王小明",
+    性別="男",
+    學年平均成績=list(
+      一年級=88,
+      二年級=90.3,
+      三年級=92,
+      四年級=95
+    )
+  )
+
+studentRecord
+
+```
+```{r}
+plasticContainer <- list(
+  greenBox=c("paper","scissor"),     # location 1
+  redBox=c(1,3,2.5),               # location 2
+  blueBox=c(TRUE,FALSE,TRUE,TRUE)    # location 3
+)
+```
+
+```{r}
+plasticContainer[["greenBox"]][[1]]
+plasticContainer[[1]][[2]]
+plasticContainer[["redBox"]][[2]]
+
+#沒有名稱用數字去取
+
+x<-plasticContainer[["greenBox"]]
+x[[1]]
+```
+```{r}
+成績單 <- c(
+  個經=90,
+  總經=77,
+  統計=88
+)
+
+成績單[["個經"]]
+```
+
+```{r}
+studentRecord[["姓名"]]
+studentRecord[["學年平均成績"]][["三年級"]]
+studentRecord[c("學年平均成績","姓名")]
+studentRecord[["學年平均成績"]][c(1,2)]
+#雙括號只能取一個vector（包含母元素的list裏）
+#用一個中括號的話就是單獨取出一個vector
+
+```
+```{r}
+extract1 <- plasticContainer[c("greenBox")][[1]][[1]]
+extract1
+#一個括號，綠箱子還是包含在母箱中，後面的第一個會是指第一個"綠色箱子"
+extract2<-plasticContainer[["greenBox"]][[1]]
+extract2
+#所以只取一個元素拜託用雙括號～
+plasticContainer$greenBox
+plasticContainer[["greenBox"]]
+```
+
+```{r}
+length(plasticContainer)
+plasticContainer[c(T,F,T)]
+```
+
+```{r}
+成績單
+成績單[c(FALSE,TRUE,TRUE)]
+```
+
+```{r}
+your_github_username <- "mrstadashi"
+your_practice_reponame <- "107-2-inclass-practice"
+library(httr)
+library(stringr)
+str_replace_all(
+  "https://api.github.com/repos/:owner/:repo/commits",
+  c(
+    ":owner"=your_github_username,
+    ":repo"=your_practice_reponame
+    )
+  ) -> commitCheckStatement
+commitCheck <- content(GET(commitCheckStatement))
+```
+```{r}
+commitCheckStatement
+```
+

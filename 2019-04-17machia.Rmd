@@ -1,0 +1,251 @@
+---
+title: '2019-03-20'
+author: ""
+date: "3/20/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+dialogue <- c("小明說：'明天不用上課。'",
+               "小花說：'真的嗎？'")
+
+cat(dialogue, sep='\n')
+```
+```{r}
+aLogical <- c(T,TRUE,F,FALSE,FALSE)
+class(aLogical)
+
+# 加總向量內的所有元素值。
+sum(aLogical)
+```
+
+```{r}
+studentMajors <-factor(
+  c("經濟系","經濟系","法律系")
+)
+
+```
+```{r}
+class(studentMajors)
+```
+
+
+```{r}
+birthplace<-factor(
+  c("台中市","台中市","台北市","台北市","台北市","台南市")
+)
+class(birthplace)
+levels(birthplace)
+as.integer(birthplace)
+```
+
+```{r}
+library(lubridate)
+```
+
+```{r}
+dtObject<-ymd_hms("1970-01-01 00:02:53") 
+
+dtObjectVector<-ymd_hms(
+  c("1970-01-01 00:02:53",
+    "1980-02-11 11:25:22")
+)
+```
+```{r}
+class(dtObject)
+
+typeof(dtObject)
+as.double(dtObject)
+```
+```{r}
+Sys.timezone()
+```
+
+```{r}
+twDateTime2 <- ymd_hms("2019-03-27 15:44:40", tz="Asia/Taipei")
+twDateTime2
+```
+```{r}
+twDateTime3<- ymd_hms("2019-03-27 15:10:40")
+twDateTime3
+```
+
+```{r}
+FranceDateTime <- with_tz(twDateTime2,tzone="Europe/Paris")
+
+```
+
+```{r}
+typeof(FranceDateTime)
+as.double(FranceDateTime)
+as.double(twDateTime)
+```
+
+```{r}
+Sys.timezone()
+```
+```{r}
+twDateTime<- ymd("2018-09-11")
+twDateTime
+```
+```{r}
+happytime<-mdy("March,3,1997")
+happytime
+```
+
+```{r}
+a <- c(1, 5, -3)
+b <- c(0.5, 12, 2)
+aL<-c(3L,1L,-2L)
+bL<-c(1L,-2L,20L)
+
+a+b
+aL*bL
+
+a^b
+a %% b
+
+```
+```{r}
+class("a+2bL")
+```
+```{r}
+twDateTime
+twDateTime+1
+```
+
+```{r}
+happytime
+twDateTime
+twDateTime3
+twDateTime2
+twDateTime-happytime
+twDateTime3-twDateTime2
+```
+```{r}
+x2<-c(2,3,5,22)
+y2<-c(3,4,22)
+x2
+y2
+x2%in%y2
+```
+
+```{r}
+x3<-c(2,NA,3)
+is.na(x3)
+```
+
+引入套件
+```{r}
+library(stringr)
+```
+
+no package
+```{r}
+install.packages ("stringr")
+
+```
+subject
+```{r}
+course<-c("個體經濟學","投資學","總體經濟學")
+str_subset(course,"經濟學")
+```
+
+```{r}
+course<-c("好吃","好難吃","超級好吃")
+str_subset(course,"好吃")
+```
+取入學年
+```{r}
+studentID<-c(
+  '410177115','410176080','410174233','410177011','410182045','410176014')
+studentID
+系別<-str_sub(studentID,"5","6")
+入學年<-str_sub(studentID,"2","4")
+```
+
+```{r}
+month <- c("3","4","2")
+day <- c("11","5","7")
+char1 <- c("月","月","月")
+char2 <- c("日","日","日")
+month
+char1
+day 
+char2
+str_c(month,char1,day,char2)
+```
+```{r}
+month <- c("3","4","2")
+day <- c("11","5","7")
+char1 <- c("月","月","月")
+char2 <- c("日","日","日")
+month
+char1
+day 
+char2
+
+str_c(month,c("月"),day,c("日"))
+str_c(month,"月",day,"日")
+```
+
+```{r}
+dates <- c("3-11", "4-5",  "2-7")
+str_split(dates,"-")
+str_replace(dates,"-","月")
+```
+```{r}
+dates <- c("3-11", "4-5",  "2-7")
+str_split(dates,"-")
+str_replace(dates,"-","/")
+```
+
+```{r}
+dates <- c("2017-3-11", "2017-4-5",  "2018-2-7")
+str_replace(dates,"-","/")
+str_replace_all(dates,"-","/")
+```
+```{r}
+install.packages("readr")
+```
+
+
+
+```{r}
+library(readr)
+githubData <- read_csv("https://raw.githubusercontent.com/tpemartin/github-data/master/githubData.csv")
+username <- githubData$`GitHub username`[11:16]
+reponame <- githubData$`GitHub repo name`[11:16]
+str_c("https://github.com",username,reponame,sep = "/")
+
+```
+
+```{r}
+library(readr)
+filmVotingData <- read_csv("https://raw.githubusercontent.com/tpemartin/github-data/master/%E7%AC%AC%E4%B8%89%E5%B1%86%E7%B6%93%E6%BF%9F%E6%92%AD%E5%AE%A2%E7%AB%B6%E8%B3%BD%E5%8F%83%E8%B3%BD%E4%BD%9C%E5%93%81%E6%8A%95%E7%A5%A8%E7%B5%90%E6%9E%9C%E6%A8%A3%E6%9C%AC%20-%20Sheet1.csv")
+birthday<-filmVotingData$`出生西元年月日（驗證本人用）`
+
+birthday
+str_sub(birthday,1,4) ->year
+str_sub(birthday,5,6) ->month
+str_sub(birthday,7,8) ->day
+str_c("西元",year,"年",month,"月",day,"日")
+```
+
+```{r} 
+民國年月<-c("099/01","099/02","099/03")
+```
+```{r}
+
+y<- str_sub(民國年月,2,3)
+m<- str_sub(民國年月,5,6)
+y2<- as.integer(y)
+m2<- as.integer(m)
+str_c("西元",y2+1911,"年",m2,"月")
+
+```
+
