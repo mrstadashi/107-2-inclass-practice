@@ -1,0 +1,149 @@
+---
+title: '20190515'
+author: "ekubo"
+date: "2019/5/15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+```{r}
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+Mat1 <- matrix(
+  c(1:6), 2,3
+)
+Mat1
+class(Mat1)
+typeof(Mat1)
+```
+```{r}
+Mat2 <- matrix(
+  c("a","b","c","d"), 2, 2
+)
+Mat2
+```
+```{r}
+StuList <- list(
+  學號=c(172,214,322,425,517),
+  姓名=c("小明","大雄","胖虎","小新","大白"),
+  成績=c(80,60,90,70,50)
+  )
+StuList 
+```
+```{r}
+StuDF <- data.frame(
+  學號=c(172,214,322,425,517),
+  姓名=c("小明","大雄","胖虎","小新","大白"),
+  成績=c(80,60,90,70,50)
+  )
+StuDF 
+StuDF2 <- data.frame(
+  學號=c(172,214,322,425,517),
+  姓名=c("小明","大雄","胖虎","小新","大白"),
+  成績=c(80,60,90,70,50),
+  stringsAsFactors = FALSE
+  )
+StuDF2 
+```
+改col2,3的名字
+```{r}
+a <- c("1","b","TRUE")
+a
+a[[2]] <- "c" #元素存在
+a[[5]] <- "7" #元素不存在
+a
+```
+```{r}
+b <- list(
+  元素1=1,
+  元素2="Hello",
+  元素3=TRUE
+)
+b[[3]] <-"FALSE"
+b[[5]] <-"7"
+b
+```
+使用"元素名稱"創新元素
+```{r}
+names(b)
+b[["新元素A"]] <- c(1,2,3)
+b$新元素B <- c(T,F,T)
+b
+```
+```{r}
+library(readr)
+exData3 <- read_csv("https://raw.githubusercontent.com/tpemartin/github-data/master/exData3.csv",
+                    col_types = cols(
+                      匯率 = col_number(),
+                      期間 = col_character()))
+```
+取出「期間」變數轉成date class
+```{r}
+library(lubridate)
+exData3$期間 <- ymd(exData3$期間)
+class(exData3$期間)
+```
+增加一個「isAsiaCrisis」的logical變數，其值為TRUE若「期間」介於1997-06-01到1998-12-01（含前後）。
+```{r}
+exData3$isAsiaCrisis<- (exData3$期間>=ymd("1997-06-01")& exData3$期間<=ymd("1998-12-01"))
+class(exData3$isAsiaCrisis)
+```
+利用「isAsiaCrisis」值，結合使用[.R,.C]取出1997-06-01到1998-12-01亞洲金融危機的子樣本。
+```{r}
+logiAsiaCrisis <- exData3$isAsiaCrisis
+exData3[logiAsiaCrisis,]
+```
+```{r}
+library(readr)
+transcriptDataFinal <- read_csv("https://raw.githubusercontent.com/tpemartin/github-data/master/transcriptDataFinal.csv")
+```
+
+```{r}
+a <- transcriptDataFinal$學號=="92aS67fee"
+transcriptDataFinal[a,]
+```
+```{r}
+function1 <- function(x,.alpha){
+  value <- x+.alpha
+  return(value)
+}
+
+class(function1)
+```
+```{r}
+supply_fun <- function(a,b,P){
+  Qs <- a+b*P
+  return(Qs)
+}
+class(supply_fun)
+demand_fun <- function(c,d,P){
+  Qd <- c-d*P
+  return(Qd)
+}
+class(demand_fun)
+```
+
