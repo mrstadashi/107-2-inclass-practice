@@ -1,0 +1,120 @@
+---
+title: "0424practice"
+author: "ekubo"
+date: "2019/5/28"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+vec1 <- c(1:6)
+vec1
+```
+
+```{r}
+Mat1 <- matrix(
+  c(1:6),2,3
+)
+Mat1
+```
+
+```{r}
+Mat1
+Mat1[[2]]
+Mat1[[4]]
+```
+```{r}
+Mat2 <- matrix(
+  c("a","b","c","d"),2,2
+)
+Mat2
+class(Mat2)
+typeof(Mat2)
+Mat2[[2]]
+Mat2[c(T,F,F,T)]
+```
+
+```{r}
+StuList <- list(
+  學號=c(172,214,322,425,517),
+  姓名=c("小明","大雄","胖虎","小新","大白"),
+  成績=c(80,60,90,70,50)
+  )
+StuList 
+```
+```{r}
+StuDF <- data.frame(
+  學號=c(172,214,322,425,517),
+  姓名=c("小明","大雄","胖虎","小新","大白"),
+  成績=c(80,60,90,70,50),
+  stringsAsFactors = FALSE
+  )
+StuDF 
+```
+```{r}
+StuDF$姓名[[3]]
+```
+```{r}
+class(StuDF$姓名)
+StuDF$姓名 <- as.character(StuDF$姓名)
+class(StuDF$姓名)
+```
+```{r}
+chosenLETTERS <-LETTERS[1:15]
+matoBj1 <- matrix(chosenLETTERS,5,3)
+matObj1
+tolower(matoBj1)#轉成小寫
+toupper(matoBj1)#轉成大寫
+chosenLETTERS[8]
+matoBj1[8]
+matoBj1[3,2]
+matoBj1[c(F,F,T,F,F),c(F,T,F)]
+matObj1[c(1,5),c(2,3)]
+matoBj1[.1,.2]
+```
+```{r}
+library(readr)
+classSurvey <- read_csv("https://raw.githubusercontent.com/tpemartin/github-data/master/classSurvey.csv")
+
+```
+從data frame視覺角度
+```{r}
+classSurvey[(1:60),c(4,5)]
+```
+從R的角度（即單純list vector角度）
+```{r}
+classSurvey[c("性別","本學期學分數")]#不用逗點
+```
+
+子樣本（只留下符合某些條件的）
+女生才是true
+```{r}
+m <- classSurvey[[4]]
+m1 <- m=="女"
+m1
+classSurvey[m1,c("性別","本學期學分數")]
+
+```
+
